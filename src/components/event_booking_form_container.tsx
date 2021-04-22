@@ -20,8 +20,8 @@ export class EventBookingFormContainer extends React.Component<EventBookingFormC
         this.state = {
             state: "loading"
         };
-
-        fetch(p.eventServiceURL + "/events/" + p.eventID)
+        console.log(p)
+        fetch(p.eventServiceURL + "/events/name/" + p.eventID)
             .then<Event>(resp => resp.json())
             .then(event => {
                 this.setState({
@@ -40,12 +40,22 @@ export class EventBookingFormContainer extends React.Component<EventBookingFormC
             return <div>Unknown error</div>;
         }
 
+        if (this.state.state === "done") {
+            return <div>Completed!!</div>;
+        }
+
         return <EventBookingForm event={this.state.event} onSubmit={amount => this.handleSubmit(amount)}/>
     }
 
     private handleSubmit(seats: number) {
-        const url = this.props.bookingServiceURL + "/events/" + this.props.eventID + "/bookings";
-        const payload = {seats: seats};
+        const url = this.props.bookingServiceURL + "/bookings";
+        const payload = {
+            user_id: "1",
+            event_id: this.props.eventID,
+            seats: seats
+        };
+        // const url = this.props.bookingServiceURL + "/events/" + this.props.eventID + "/bookings";
+        // const payload = {seats: seats};
 
         this.setState({
             event: this.state.event,

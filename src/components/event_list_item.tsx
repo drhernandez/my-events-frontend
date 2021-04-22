@@ -23,7 +23,7 @@ export class EventListItem extends React.Component<EventListItemProps, {}> {
             <td>{locationName}</td>
             <td>{start.toLocaleDateString()}</td>
             <td>{end.toLocaleDateString()}</td>
-            <td><Link to={`/events/${this.props.event.ID}/book`} className="btn btn-primary">Book now!</Link></td>
+            <td><Link to={`/events/${this.props.event.Name}/book`} className="btn btn-primary">Book now!</Link></td>
         </tr>
     }
 }
